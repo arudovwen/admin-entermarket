@@ -51,6 +51,21 @@ const NotificationDropdown = props => {
           }
         })
     }
+    function markread() {
+      const token = localStorage.getItem("admin-token")
+
+      axios
+        .get(`${process.env.REACT_APP_URL}/admin/notifications/mark`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(res => {
+          if (res.status === 200) {
+            getNotifications()
+          }
+        })
+    }
     const handleValidDate = date => {
       const date1 = moment(new Date(date)).format("DD MMM Y")
       return date1
@@ -132,13 +147,13 @@ const NotificationDropdown = props => {
             ))}
           </SimpleBar>
           <div className="p-2 border-top d-grid">
-            {/* <Link
+            <span onClick={() => markread()}
               className="btn btn-sm btn-link font-size-14 btn-block text-center"
-              to="#"
+            
             >
               <i className="mdi mdi-arrow-right-circle me-1"></i>{" "}
-              {props.t("View all")}{" "}
-            </Link> */}
+              {props.t("Mark all as read")}{" "}
+            </span>
           </div>
         </DropdownMenu>
       </Dropdown>

@@ -18,7 +18,7 @@ import EcommerceCart from "../pages/Ecommerce/EcommerceCart"
 import EcommerceCheckout from "../pages/Ecommerce/EcommerceCheckout"
 import EcommerceShops from "../pages/Ecommerce/EcommerceShops/index"
 import EcommerceAddProduct from "../pages/Ecommerce/EcommerceAddProduct"
-import EcommerceOthers from "../pages/Ecommerce/Others/catgories"
+
 
 //Invoices
 import InvoicesList from "../pages/Invoices/invoices-list"
@@ -62,6 +62,12 @@ import AdminDashboard from "../pages/Admin/Dashboard/index"
 import AdminOrders from "../pages/Admin/Orders/index"
 import AdminOrdersAssigned from "../pages/Admin/Orders/assigned"
 import AdminOrdersPending from "../pages/Admin/Orders/pending"
+import AdminOrdersCompleted from "../pages/Admin/Orders/completed"
+import AdminOrdersFailed from "../pages/Admin/Orders/failed"
+import EcommerceOthers from "../pages/Admin/Others/catgories"
+import Lgas from "../pages/Admin/Others/lgas"
+import Stores from "../pages/Admin/Stores/index"
+import Logistics from "../pages/Admin/Others/logistics"
 
 
 
@@ -151,7 +157,7 @@ const authProtectedRoutes = [
   { path: "/ecommerce-checkout", component: EcommerceCheckout },
   { path: "/ecommerce-shops", component: EcommerceShops },
   { path: "/ecommerce-add-product", component: EcommerceAddProduct },
-  { path: "/ecommerce-others", component: EcommerceOthers },
+  // { path: "/others", component: EcommerceOthers },
 
   //Invoices
   { path: "/invoices-list", component: InvoicesList },
@@ -273,7 +279,13 @@ const adminProtectedRoutes = [
   { path: "/admin/orders", component: AdminOrders },
   { path: "/admin/orders/assigned", component: AdminOrdersAssigned },
   { path: "/admin/orders/pending", component: AdminOrdersPending },
-
+  { path: "/admin/orders/failed", component: AdminOrdersFailed },
+  { path: "/admin/orders/completed", component: AdminOrdersCompleted },
+  { path: "/admin/categories", component: EcommerceOthers },
+  { path: "/admin/lgas", component: Lgas },
+  { path: "/admin/Logistics", component: Logistics },
+  { path: "/admin/stores", component: Stores },
+  
   {
     path: "/admin/dashboard",
     exact: true,

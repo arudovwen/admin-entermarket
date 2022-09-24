@@ -164,21 +164,6 @@ const EcommerceOthers = props => {
       ),
     },
     {
-      dataField: "category.name",
-      text: "Category",
-      sort: true,
-      // eslint-disable-next-line react/display-name
-      formatter: (cellContent, row) => (
-        <div
-          data-toggle="tooltip"
-          data-placement="top"
-          title="Double click to edit"
-        >
-          {row.category.name}
-        </div>
-      ),
-    },
-    {
       dataField: "name",
       text: "Brand",
       sort: true,
@@ -193,6 +178,22 @@ const EcommerceOthers = props => {
         </div>
       ),
     },
+    {
+      dataField: "category.name",
+      text: "Category",
+      sort: true,
+      // eslint-disable-next-line react/display-name
+      formatter: (cellContent, row) => (
+        <div
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Double click to edit"
+        >
+          {row.category?.name || '-'}
+        </div>
+      ),
+    },
+   
     {
       dataField: "action",
       isDummyField: true,
@@ -224,14 +225,14 @@ const EcommerceOthers = props => {
   }
 
   useEffect(() => {
-    const store = JSON.parse(localStorage.getItem("authUser"))
-    dispatch(onGetCategories(store.id))
+    const store = JSON.parse(localStorage.getItem("authAdmin"))
+    dispatch(onGetCategories())
   }, [dispatch])
 
   useEffect(() => {
-    const store = JSON.parse(localStorage.getItem("authUser"))
+    const store = JSON.parse(localStorage.getItem("authAdmin"))
 
-    dispatch(onGetBrands(store.id))
+    dispatch(onGetBrands())
   }, [dispatch])
 
   const toggle = () => {
@@ -276,12 +277,15 @@ const EcommerceOthers = props => {
   }
 
   const handleDelete = (data, type) => {
+   let conf = window.confirm("Are you sure?")
+   if(conf){
     if (data.id !== undefined) {
       type === "category"
         ? dispatch(onDeleteCategory(data))
         : dispatch(onDeleteBrand(data))
       onPaginationPageChange(1)
     }
+   }
   }
   const handleTableUpdate = (id, value, column, type) => {
     var data = { id }
@@ -337,7 +341,7 @@ const EcommerceOthers = props => {
                           <React.Fragment>
                             <Row className="mb-2">
                               <Col sm="4">
-                                <h4>All Categories</h4>
+                                <h4>Categories</h4>
                               </Col>
                               <Col sm="8">
                                 <div className="text-sm-end">
@@ -468,7 +472,7 @@ const EcommerceOthers = props => {
                           <React.Fragment>
                             <Row className="mb-2">
                               <Col sm="4">
-                                <h4>All Brands </h4>
+                                <h4>Brands </h4>
                               </Col>
                               <Col sm="8">
                                 <div className="text-sm-end">

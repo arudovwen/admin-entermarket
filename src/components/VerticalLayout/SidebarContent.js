@@ -158,6 +158,48 @@ const SidebarContent = props => {
                   <span>{props.t("Assigned Orders")}</span>
                 </Link>
               </li>
+              <li>
+                <Link to="/admin/orders/completed">
+                  <i className="bx bx-list-check"></i>
+
+                  <span>{props.t("Completed Orders")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/orders/failed">
+                  <i className="bx bx-list-check"></i>
+
+                  <span>{props.t("Failed Orders")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/lgas">
+                  <i className="bx bx-list-check"></i>
+
+                  <span>{props.t("Lgas")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/categories">
+                  <i className="bx bx-list-check"></i>
+
+                  <span>{props.t("Categories & Brands")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/stores">
+                  <i className="bx bx-list-check"></i>
+
+                  <span>{props.t("Stores")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/logistics">
+                  <i className="bx bx-list-check"></i>
+
+                  <span>{props.t("Logisitics")}</span>
+                </Link>
+              </li>
             </ul>
           )}
         </div>

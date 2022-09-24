@@ -176,7 +176,7 @@ const Orders = props => {
 
     setOrderList(arg)
     toggle()
-    markasviewed()
+    markasviewed(arg.id)
   }
 
   var node = useRef()
@@ -299,13 +299,13 @@ const Orders = props => {
       order: "desc",
     },
   ]
-    const markasviewed = () => {
+    const markasviewed = (id) => {
       var data = {
         view_at: "viewed",
       }
       axios
         .put(
-          `${process.env.REACT_APP_URL}/admin/update/order/status/${orderList.id}`,
+          `${process.env.REACT_APP_URL}/admin/update/order/status/${id}`,
           data,
           {
             headers: {

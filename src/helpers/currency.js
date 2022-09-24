@@ -1,4 +1,5 @@
 export const currency = new Intl.NumberFormat('en-US', {
     style:'currency',
-    currency:'NGN'
+    currency:'NGN',
+    currencyDisplay: 'narrowSymbol',
 })

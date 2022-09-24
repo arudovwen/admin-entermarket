@@ -45,7 +45,7 @@ import { getOrders as onGetOrders } from "store/actions"
 import { currency } from "../../../helpers/currency"
 import { classname } from "classnames"
 
-const AssignedOrders = props => {
+const FailedOrders = props => {
   const dispatch = useDispatch()
 
   const selectRow = {
@@ -66,7 +66,7 @@ const AssignedOrders = props => {
 
 
     axios
-      .get(`${process.env.REACT_APP_URL}/admin/get/assigned/orders`, {
+      .get(`${process.env.REACT_APP_URL}/admin/get/failed/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -324,10 +324,10 @@ const AssignedOrders = props => {
     <React.Fragment>
       <div className="page-content">
         <MetaTags>
-          <title>Assigned Orders | EnterMarket -</title>
+          <title>Failed Orders | EnterMarket -</title>
         </MetaTags>
         <Container fluid>
-          <Breadcrumbs title="Assigned" breadcrumbItem="Orders" />
+          <Breadcrumbs title="Failed" breadcrumbItem="Orders" />
           <Row className="my-5">
             <Col sm="3">
               <Input
@@ -354,7 +354,7 @@ const AssignedOrders = props => {
                 </div>
               </>
             </Col>
-         
+           
           </Row>
           <Modal isOpen={modal} toggle={toggle} size="md">
             <ModalHeader toggle={toggle} tag="h4">
@@ -758,7 +758,7 @@ const AssignedOrders = props => {
   )
 }
 
-AssignedOrders.propTypes = {
+FailedOrders.propTypes = {
   orders: PropTypes.array,
   onGetOrders: PropTypes.func,
   onAddNewOrder: PropTypes.func,
@@ -766,4 +766,4 @@ AssignedOrders.propTypes = {
   onUpdateOrder: PropTypes.func,
 }
 
-export default withRouter(AssignedOrders)
+export default withRouter(FailedOrders)
