@@ -44,21 +44,22 @@ import Breadcrumbs from "components/Common/Breadcrumb"
 
 import { getOrders as onGetOrders } from "store/actions"
 import { currency } from "../../../helpers/currency"
+import { isValidInputTimeValue } from "@testing-library/user-event/dist/utils"
 
 const PendingOrders = props => {
   const dispatch = useDispatch()
   const [orders, setorders] = useState([])
-  const [logistics, setlogistics] = useState("kwik")
+
   const [orderItemsFiltered, setorderItemsFiltered] = useState([])
   const [showing, setshowing] = useState("all")
   const [shownTab, setshownTab] = useState(false)
   const [link, setlink] = useState(null)
   const [meta, setmeta] = useState(null)
   const [hasmore, sethasmore] = useState(false)
- const token = localStorage.getItem("admin-token")
+  const token = localStorage.getItem("admin-token")
+  const [logistics, setLogistics] = React.useState([])
+  const [logistic, setLogistic] = React.useState(null)
   function getOrders() {
-
-
     axios
       .get(`${process.env.REACT_APP_URL}/admin/get/pending/orders`, {
         headers: {
@@ -77,7 +78,16 @@ const PendingOrders = props => {
         }
       })
   }
-
+  React.useEffect(() => {
+    getLogistics()
+  }, [])
+  function getLogistics() {
+    axios.get(`${process.env.REACT_APP_URL}/logistics`).then(res => {
+      if (res.status === 200) {
+        setLogistics(res.data.data)
+      }
+    })
+  }
   const toggleShippingType = val => {
     let order
     setshowing(val)
@@ -103,7 +113,7 @@ const PendingOrders = props => {
   }, [])
 
   const toggleLogisitics = val => {
-    setlogistics(val)
+    setLogistic(val)
   }
 
   const selectRow = {
@@ -197,15 +207,14 @@ const PendingOrders = props => {
     toggle()
     markasviewed(arg.id)
   }
-  const markasviewed = (id) => {
-    
+  const markasviewed = id => {
     var data = {
       view_at: "viewed",
     }
     axios
       .put(
         `${process.env.REACT_APP_URL}/admin/update/order/status/${id}`,
-        
+
         data,
         {
           headers: {
@@ -289,7 +298,7 @@ const PendingOrders = props => {
     }
 
     if (!url) return
-   
+
     axios
       .get(url, {
         headers: {
@@ -315,26 +324,28 @@ const PendingOrders = props => {
       order: "desc",
     },
   ]
-  const handleAssign = ()=>{
+  const handleAssign = () => {
     var data = {
-      logistic: logistics,
+      logistic: logistic,
       status: "assigned",
       logistic_status: "out for delivery",
     }
-    axios.put(
-      `${process.env.REACT_APP_URL}/admin/update/order/status/${orderList.id}`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    ).then(res=>{
-      if(res.status === 200){
-        getOrders()
-        toggle()
-      }
-    })
+    axios
+      .put(
+        `${process.env.REACT_APP_URL}/admin/update/order/status/${orderList.id}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(res => {
+        if (res.status === 200) {
+          getOrders()
+          toggle()
+        }
+      })
   }
 
   return (
@@ -518,33 +529,29 @@ const PendingOrders = props => {
               </div>
               <div>
                 <Label>Choose a logistic company</Label>
-                <div className="d-flex">
-                  <Button
-                    size="sm"
-                    outline={logistics !== "kwik"}
-                    color="primary"
-                    className={logistics === "kwik" ? "shadow-lg" : ""}
-                    onClick={() => toggleLogisitics("kwik")}
-                  >
-                    Kwik
-                  </Button>
-                  <Button
-                    size="sm"
-                    color="primary"
-                    className={
-                      logistics === "gokada" ? "shadow-lg mx-3" : "mx-3"
-                    }
-                    outline={logistics !== "gokada"}
-                    onClick={() => toggleLogisitics("gokada")}
-                  >
-                    Gokada
-                  </Button>
+                <div className="d-flex tw-gap-4 tw-flex-wrap">
+                  {logistics.map(item => (
+                    <Button
+                      key={item.id}
+                      size="sm"
+                      outline={logistic !== item.name}
+                      color="primary"
+                      className={logistic === item.name ? "shadow-lg" : ""}
+                      onClick={() => toggleLogisitics(item.name)}
+                    >
+                      {item.name}
+                    </Button>
+                  ))}
                 </div>
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button size="sm" onClick={() => handleAssign()}>
-                Assign
+              <Button
+                size="sm"
+                disabled={!logistic}
+                onClick={() => handleAssign()}
+              >
+                Assign Order
               </Button>
             </ModalFooter>
           </Modal>
@@ -677,10 +684,11 @@ const PendingOrders = props => {
                   &#8593; Release to refresh
                 </h3>
               }
+              className="p-1"
             >
-              <Row>
+              <div className="tw-grid grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-gap-6">
                 {orderItemsFiltered.map((item, id) => (
-                  <Col md="3" key={id}>
+                  <div key={id}>
                     <Card>
                       <CardHeader>
                         <CardTitle className="d-flex justify-content-between align-items-center">
@@ -769,9 +777,9 @@ const PendingOrders = props => {
                         </Button>
                       </CardBody>
                     </Card>
-                  </Col>
+                  </div>
                 ))}
-              </Row>
+              </div>
             </InfiniteScroll>
           )}
         </Container>

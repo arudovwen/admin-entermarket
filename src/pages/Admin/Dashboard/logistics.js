@@ -25,7 +25,7 @@ export default function logistics() {
           <tbody>
             {logistics.map(item => (
               <tr key={item.id}>
-                <td>{item.name}</td>
+                <td className="tw-capitalize">{item.name}</td>
               </tr>
             ))}
           </tbody>

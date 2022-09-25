@@ -665,10 +665,11 @@ const Orders = props => {
                     &#8593; Release to refresh
                   </h3>
                 }
+                className="p-1"
               >
-                <Row>
+                <div className="tw-grid grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-gap-6">
                   {orderItemsFiltered.map((item, id) => (
-                    <Col md="3" key={id}>
+                    <div key={id}>
                       <Card>
                         <CardHeader>
                           <CardTitle className="d-flex justify-content-between align-items-center">
@@ -754,9 +755,9 @@ const Orders = props => {
                           </Button>
                         </CardBody>
                       </Card>
-                    </Col>
+                    </div>
                   ))}
-                </Row>
+                </div>
               </InfiniteScroll>
             </div>
           )}

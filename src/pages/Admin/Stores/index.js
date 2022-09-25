@@ -52,12 +52,12 @@ const EcommerceShops = props => {
         <Container fluid>
           {/* Render Breadcrumb */}
           <Breadcrumbs title="Ecommerce" breadcrumbItem="Stores" />
-          <div className="tw-grid tw-grid-cols-2 tw-gap-x-8 tw-min-h-[60vh] py-5">
+          <div className="tw-grid tw-grid-cols-2 tw-gap-6 py-5 tw-overflow-y-auto">
             {map(shops, (shop, key) => (
               <CardShop shop={shop} getShops={getShops} key={"_shop_" + key} />
             ))}
           </div>
-          <div className="tw-mt-12">
+          <div className="tw-mt-12 mb-4">
             {" "}
             <div className="tw-flex tw-justify-center tw-gap-x-4">
               <button

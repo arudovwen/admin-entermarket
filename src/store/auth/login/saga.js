@@ -36,9 +36,7 @@ function* loginUser({ payload: { user, history } }) {
 
 function* logoutUser({ payload: { history } }) {
   try {
-    localStorage.removeItem("authUser")
-    localStorage.removeItem("user-token")
-
+    localStorage.clear()
     history.push("/login")
   } catch (error) {
     yield put(apiError(error))
@@ -66,10 +64,9 @@ function* adminloginUser({ payload: { user, history } }) {
 
 function* adminlogoutUser({ payload: { history } }) {
   try {
-    localStorage.removeItem("authAdmin")
-    localStorage.removeItem("admin-token")
-
-    history.push("/admin/login")
+   
+    localStorage.clear()
+    history.push("/login")
   } catch (error) {
     yield put(apiError(error))
   }

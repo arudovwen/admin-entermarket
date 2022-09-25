@@ -84,17 +84,12 @@ const ProfileMenu = props => {
             ""
           )}
           <div className="dropdown-divider" />
-          {adminuser ? (
+          
             <Link to="/logout" className="dropdown-item">
               <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger" />
               <span>{props.t("Logout")}</span>
             </Link>
-          ) : (
-            <Link to="/admin/logout" className="dropdown-item">
-              <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger" />
-              <span>{props.t("Logout")}</span>
-            </Link>
-          )}
+         
         </DropdownMenu>
       </Dropdown>
     </React.Fragment>
