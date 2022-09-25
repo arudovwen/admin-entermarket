@@ -240,15 +240,15 @@ const authProtectedRoutes = [
 ]
 
 const publicRoutes = [
-  { path: "/logout", component: Logout },
-  { path: "/login", component: Login },
-  { path: "/forgot-password", component: ForgetPwd },
-  { path: "/register", component: Register },
+  // { path: "/logout", component: Logout },
+  // { path: "/login", component: Login },
+  // { path: "/forgot-password", component: ForgetPwd },
+  // { path: "/register", component: Register },
 
-  { path: "/admin/logout", component: AdminLogout },
-  { path: "/admin/login", component: AdminLogin },
-  { path: "/admin/forgot-password", component: AdminForgetPwd },
-  { path: "/admin/register", component: AdminRegister },
+  { path: "/logout", component: AdminLogout },
+  { path: "/login", component: AdminLogin },
+  { path: "/forgot-password", component: AdminForgetPwd },
+  { path: "/register", component: AdminRegister },
 
   { path: "/pages-maintenance", component: PagesMaintenance },
   { path: "/pages-comingsoon", component: PagesComingsoon },
